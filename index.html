@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFS Work Desk</title>
+    <style>
+        /* Main styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styling */
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #header #menuIcon {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Footer styling */
+        #footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Side menu styling */
+        #sideMenu {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #444;
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0px 5px rgba(0,0,0,0.5);
+            transition: left 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1;
+        }
+
+        #sideMenu button {
+            background-color: #555;
+            color: white;
+            padding: 10px;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #sideMenu button:hover {
+            background-color: #666;
+        }
+
+        /* Close button styling */
+        #sideMenu #closeMenu {
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+            align-self: flex-end;
+            margin-bottom: 20px;
+        }
+
+        /* Main content and iframe styling */
+        #mainContent {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f4;
+            transition: margin-left 0.4s ease;
+            overflow: hidden;
+        }
+
+        #iframeContainer {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header with TFS text and menu icon -->
+    <div id="header">
+        <span id="menuIcon" onclick="toggleMenu()">☰</span>
+        <span>TFS Work Desk</span>
+    </div>
+
+    <!-- Sliding Side Menu -->
+    <div id="sideMenu">
+        <span id="closeMenu" onclick="toggleMenu()">✖</span>
+        <button onclick="loadIframe('register')">Register</button>
+        <button onclick="loadIframe('wording')">TFS Wording</button>
+        <button onclick="loadIframe('presentation')">TFS Presentations</button>
+        <button onclick="loadIframe('sheets')">TFS Sheets</button>
+        <button onclick="loadIframe('tfslang')">Tfslang</button>
+        <button onclick="loadIframe('tfsPainter')">TFS Painter</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+        <div id="homeScreen">
+            <h1>Welcome to TFS Work Desk</h1>
+            <p>Select an option from the menu to get started.</p>
+        </div>
+
+        <!-- Iframe Container for displaying content -->
+        <div id="iframeContainer">
+            <iframe id="contentFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+        <p>© TFS Work Desk - All Rights Reserved</p>
+    </div>
+
+    <script>
+        // URLs for different TFS sections
+        const urls = {
+            register: 'https://tfsos.github.io/TfsReg/',       // Replace with your URL
+            login: 'https://nsn(#-4;:.com',             // Replace with your URL
+            wording: 'https://tfsos.github.io/wording/',         // Replace with your URL
+            presentation: 'https://tfsos.github.io/prs/', // Replace with your URL
+            sheets: 'https://tfsos.github.io/xl/',           // Replace with your URL
+            tfslang: 'https://tfslang.weebly.com/',         // Replace with your URL
+            tfsPainter: 'https://tfsos.github.io/da/'   // Replace with your URL
+        };
+
+        // Function to toggle the sliding menu and animate menu icon
+        function toggleMenu() {
+            const sideMenu = document.getElementById('sideMenu');
+            const mainContent = document.getElementById('mainContent');
+            const menuIcon = document.getElementById('menuIcon');
+
+            if (sideMenu.style.left === '0px') {
+                sideMenu.style.left = '-300px';
+                mainContent.style.marginLeft = '0';
+                menuIcon.style.display = 'block';
+            } else {
+                sideMenu.style.left = '0';
+                mainContent.style.marginLeft = '250px';
+                menuIcon.style.display = 'none';
+            }
+        }
+
+        // Function to load the iframe with a specific URL and hide the home screen
+        function loadIframe(section) {
+            const iframe = document.getElementById('contentFrame');
+            iframe.src = urls[section];
+            document.getElementById('homeScreen').style.display = 'none';
+            document.getElementById('iframeContainer').style.display = 'block';
+            toggleMenu(); // Close menu after selection
+        }
+    </script>
+
+</body>
+</html>
